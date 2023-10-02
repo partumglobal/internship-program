@@ -1,3 +1,5 @@
+// forms
+
  const form = document.getElementById('myForm');
     const output = document.getElementById('output');
 
@@ -9,3 +11,5 @@
 
       output.innerHTML = `Hello, ${name}! Your email is ${email}.`;
     });
+
+
