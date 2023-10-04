@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Part Selector</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body>
+    <body class="bg-gray-100 flex justify-center items-center min-h-screen bg-build bg-cover bg-center" style="background-image: url('images/build.jpg');">
+        <div class="w-full max-w-md mx-auto text-center">
+            <h1 class="text-2xl font-semibold mb-4 w-full max-w-md" style="text-align: center;">PC Part Selector</h1>
+            <form id="partSelector" class="bg-white p-4 shadow-md rounded-lg">
+                <div class="mb-4">
+                    <label for="cpu" class="block font-medium">CPU:</label>
+                    <select id="cpu" class="border p-2 w-full">
+                        <option value="i5">Intel Core i3</option>
+                        <option value="i5">Intel Core i5</option>
+                        <option value="i7">Intel Core i7</option>
+                        <option value="ryzen5">AMD Ryzen 5</option>
+                        <option value="ryzen7">AMD Ryzen 7</option>
+                    </select>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="gpu" class="block font-medium">GPU:</label>
+                    <select id="gpu" class="border p-2 w-full">
+                        <option value="gtx1660">NVIDIA GTX 1660</option>
+                        <option value="rtx3060">NVIDIA RTX 3060</option>
+                        <option value="rx5700">AMD RX 5700</option>
+                        <option value="rx6800">AMD RX 6800</option>
+                    </select>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="motherboard" class="block font-medium">Motherboard:</label>
+                    <select id="motherboard" class="border p-2 w-full">
+                        <option value="itx">Mini-ITX</option>
+                        <option value="atx">Micro ATX</option>
+                        <option value="eatx">Extended ATX</option>
+                        <option value="server">Server Motherboard</option>
+                        <option value="legacy">Legacy Motherboard</option>
+                    </select>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="ram" class="block font-medium">RAM:</label>
+                    <select id="ram" class="border p-2 w-full">
+                        <option value="8gb">8GB DDR4</option>
+                        <option value="16gb">16GB DDR4</option>
+                        <option value="32gb">32GB DDR4</option>
+                    </select>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="storage" class="block font-medium">Storage:</label>
+                    <select id="storage" class="border p-2 w-full">
+                        <option value="hdd">HDD</option>
+                        <option value="ssd">SSD</option>
+                        <option value="nvme">NVMe SSD</option>
+                        <option value="ehd">External hard drive</option>
+                        <option value="nas">Network attached storage</option>
+                    </select>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="powersupply" class="block font-medium">Power Supply:</label>
+                    <select id="powersupply" class="border p-2 w-full">
+                        <option value="atx">ATX Power Supply</option>
+                        <option value="macro">Macro ATX Power Supply</option>
+                        <option value="sfx">SFX Power Supply</option>
+                        <option value="epx">EPX Power Supply</option>
+                        <option value="modular">Modular Power Supply</option>
+                    </select>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="cases" class="block font-medium">Cases:</label>
+                    <select id="cases" class="border p-2 w-full">
+                        <option value="tower">Tower Cases</option>
+                        <option value="desktop">Desktop Cases</option>
+                        <option value="open">Open-Air Cases</option>
+                        <option value="compact">Compact Cases</option>
+                        <option value="tempered">Tempered Glass Cases</option>
+                    </select>
+                </div>
+    
+                <div class="mt-6">
+                    <input
+                    type="button"
+                    id="submit-button"
+                    class="bg-blue-500 text-white p-2 rounded-lg cursor-pointer w-full"
+                    value="Submit"
+
+ >
+                </div>
+            </form>
+
+            <form id="selectedPartsForm" class="bg-white p-4 shadow-md rounded-lg mt-4">
+                <h2>Selected PC Parts:</h2>
+                
+                <!-- Here, you can display the selected parts with their respective part names -->
+                <div class="mb-4">
+                    <label for="selected-cpu" class="block font-medium">CPU:</label>
+                    <input type="text" id="selected-cpu" name="selected-cpu" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected-gpu" class="block font-medium">GPU:</label>
+                    <input type="text" id="selected-gpu" name="selected-gpu" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected-motherboard" class="block font-medium">Motherboard:</label>
+                    <input type="text" id="selected-motherboard" name="selected-motherboard" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected-ram" class="block font-medium">RAM:</label>
+                    <input type="text" id="selected-ram" name="selected-ram" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected-storage" class="block font-medium">Storage:</label>
+                    <input type="text" id="selected-storage" name="selected-storage" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected-powersupply" class="block font-medium">Power Supply:</label>
+                    <input type="text" id="selected-powersupply" name="selected-powersupply" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected-cases" class="block font-medium">Cases:</label>
+                    <input type="text" id="selected-cases" name="selected-cases" readonly>
+                </div>
+            </form>
+
+            <div id="log" class="mt-4"></div> 
+
+
+
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById("submit-button");
+    submitButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent form submission
+        logSelectedParts();
+    });
+});
+
+function logSelectedParts() {
+    const selectedParts = {
+        CPU: document.getElementById("cpu").value,
+        GPU: document.getElementById("gpu").value,
+        RAM: document.getElementById("ram").value,
+        Motherboard: document.getElementById("motherboard").value,
+        Storage: document.getElementById("storage").value,
+        Powersupply: document.getElementById("powersupply").value,
+        Case: document.getElementById("cases").value,
+    };
+
+        document.getElementById("selected-cpu").value = selectedParts.CPU;
+        document.getElementById("selected-gpu").value = selectedParts.GPU;
+        document.getElementById("selected-motherboard").value = selectedParts.Motherboard;
+        document.getElementById("selected-ram").value = selectedParts.RAM;
+        document.getElementById("selected-storage").value = selectedParts.Storage;
+        document.getElementById("selected-powersupply").value = selectedParts.Powersupply;
+        document.getElementById("selected-cases").value = selectedParts.Case;
+
+        
+
+
+    //const log = document.getElementById("log");
+    //log.textContent = JSON.stringify(selectedParts, null, 2);
+}
+
+
+
+
+
+
+        </script>
+        
+
+
+
+
+
+
+
+    </body>
+    </html>
