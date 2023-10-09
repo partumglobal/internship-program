@@ -1,0 +1,7 @@
+GET https://65176ef5582f58d62d34f4c7.mockapi.io/api/v1/products
+
+
+
+# POST
+# DELETE
+# PUT

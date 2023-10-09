@@ -3,34 +3,39 @@ function fetchDataWithCallback(callback) {
     setTimeout(() => {
         const dummyData = { name: 'John', age: 30 };
         callback(dummyData);
-    }, 1000); 
+    }, 1000); // display data after 1sec
 }
 
-const fetchButton = document.getElementById('fetchButton');
-const dataContainer = document.getElementById('dataContainer');
+const fetchCallback = document.getElementById('fetchCallback');
 
-fetchButton.addEventListener('click', () => {
+
+fetchCallback.addEventListener('click', () => {
     fetchDataWithCallback((data) => {
         dataContainer.innerHTML = `Name: ${data.name}, Age: ${data.age}`;
     });
 });
+
+const fetchPromise = document.getElementById('fetchPromise');
+
 
 // Step 3: Promises
 function fetchDataWithPromise() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const dummyData = { name: 'Alice', age: 25 };
-            resolve(dummyData);
+            resolve(dummyData); // display dummy data
         }, 1000); // Simulating a 1-second delay
     });
 }
 
-fetchButton.addEventListener('click', () => {
+fetchPromise.addEventListener('click', () => {
     fetchDataWithPromise().then((data) => {
         dataContainer.innerHTML = `Name: ${data.name}, Age: ${data.age}`;
     });
 });
 
+
+const fetchAsync = document.getElementById('fetchAsync');
 // Step 4: Async/Await
 async function fetchDataWithAsyncAwait() {
     try {
@@ -41,7 +46,22 @@ async function fetchDataWithAsyncAwait() {
     }
 }
 
-fetchButton.addEventListener('click', () => {
+fetchAsync.addEventListener('click', () => {
+    fetchDataWithAsyncAwait().then((data) => {
+        dataContainer.innerHTML = `Name: ${data.name}, Age: ${data.age}`;
+    });
+});
+
+
+
+fetchCallback.addEventListener('click', () => {
+    fetchDataWithCallback();
+});
+fetchPromise.addEventListener('click', () => {
+    fetchDataWithPromise();
+});
+
+fetchAsync.addEventListener('click', () => {
     fetchDataWithAsyncAwait();
 });
 
