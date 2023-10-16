@@ -1,2 +1,16 @@
-GET https://jsonplaceholder.typicode.com/users/
+POST http://localhost:3000/todos/
+
+{
+  "title": "Your todo title here",
+  "completed" : true
+
+}
+
+
+
+
+
+
+
+
 
