@@ -1,2 +1,5 @@
-GET https://jsonplaceholder.typicode.com/users/
+GET   http://localhost:3000/todos/1
+
+
+
 
