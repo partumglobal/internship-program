@@ -1,63 +1,57 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const { Todo } = require('./model')
+const { connect } = require('./db')
 
-const bodyParser = require('body-parser');
+const express = require('express')
+const app = express()
+const port = 3000
+
+// !TODO install dependencies
 
 app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 
-let todos = [
-  { id: 1, title: 'Learn Node.js', completed: false },
-  { id: 2, title: 'Build a RESTful API', completed: false }
-];
 
-app.get('/todos', (req, res) => {
-  res.json(todos);
-});
+// GET ROUTE
+app.get('/todos/', async (req, res) => {
+  try {
+    const todos = await Todo.find();
+     res.render("index", {todo : todos})
 
-app.get('/todos/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const todo = todos.find(todo => todo.id === id);
-
-  if (todo) {
-    res.json(todo);
-  } else {
-    res.status(404).json({ message: 'Todo not found' });
+  } catch (err) {
+    res.status(500).json({ message: 'error getting todos' });
   }
 });
 
-app.post('/todos', (req, res) => {
-  const { title, completed } = req.body;
-  const id = todos.length + 1;
-  const newTodo = { id, title, completed: completed || false };
-  todos.push(newTodo);
-  res.json(newTodo);
-});
-
-
-app.put('/todos/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  const { title, completed } = req.body;
-  const todo = todos.find(todo => todo.id === id);
-
-  if (todo) {
-    todo.title = title || todo.title;
-    todo.completed = completed || todo.completed;
-    res.json(todo);
-  } else {
-    res.status(404).json({ message: 'Todo not found' });
+app.delete('/todos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Todo.findByIdAndDelete(id);
+    res.redirect('/todos/');
+  } catch (err) {
+    res.status(500).json({ message: 'error deleting todo' });
   }
 });
 
-app.delete('/todos/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  todos = todos.filter(todo => todo.id !== id);
-  res.json({ message: 'Todo deleted' });
-});
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+app.post('/todos', async (req, res) => {
+  try {
+    const todo = new Todo(req.body);
+    const saveTodo = await todo.save();
+    res.json(saveTodo)
+  } catch (err) {
+    res.status(500).json({ message: 'error getting todos' })
+
+  }
+})
+
+
+
+
+
+app.listen(port, async () => {
+  await connect();
+  console.log(`server is running on port ${port} `);
+})

@@ -1,4 +1,15 @@
-GET   http://localhost:3000/todos/1
+POST http://localhost:3000/todos/
+
+{
+  "title": "Your todo title here",
+  "completed" : true
+
+}
+
+
+
+
+
 
 
 
