@@ -1,9 +1,14 @@
+'use client'
+
 import React from 'react'
 
-export const Button = ({text, bgcolor}) => {
+export default function Button({ title, bgcolor}) {
+    function handleOnclick(){
+    alert("Button Clicked")
+  }
   return (
-    <button className={`p-4 text-white ${bgcolor} rounded-lg shadow-sm`}>
-     {text}
-    </button>
-  );
+    <button onClick={handleOnclick} className={`px-4 text-white ${bgcolor} rounded-md shadow-md`}>{title}</button>
+  )
 }
+
+

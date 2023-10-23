@@ -1,20 +1,67 @@
-import Image from 'next/image'
 
-import {Button} from '../components/Button'
+'use client'
+import React, {useState} from 'react'
 
+import Button from '@/components/Button'
+import ListUsers from '@/components/ListUsers'
+import Navbar from '@/components/Navbar'
 
-
+const users = [
+  {
+    id: 1,
+    name: "Nii"
+  },
+  {
+    id: 2,
+    name: "Gabby"
+  },
+  {
+    id: 3,
+    name: "Kofi"
+  }
+]
 
 
 
 export default function Home() {
+
+  const [count, setCount] = useState(0)
+
+
+  const isLoggedIn = false
+
+
+  function updateCount (){
+    setCount(count + 1)
+  }
+
+
+
+
   return (
-    <main className="flex flex-col items-center justify-between p-24">
-      <div className='mb-6'>HELLO WORLD</div>
+    <>
+    <Navbar/>
+      {/* <div className='p-10 mx-auto max-w-7xl'>
+    <button onClick={updateCount}>
+      Clicked {count} times
+    </button>
 
-    <Button text='Know More' bgcolor='bg-green-900' />
-     <Button text='CLICK ME' bgcolor='bg-red-900'  />
+        {
+          isLoggedIn ?
 
-    </main>
+          <Button  title='Contact Us' bgcolor='bg-red-900' />
+
+
+
+            :
+            <ul>
+              <ListUsers users={users} />
+            </ul>
+        }
+      </div> */}
+    </>
   )
 }
+
+
+
