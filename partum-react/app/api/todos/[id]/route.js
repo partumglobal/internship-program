@@ -14,12 +14,59 @@ export const GET = async (req) => {
 
         if (!todo) return NextResponse.json({ message: "Not Found" }, { status: 404 })
 
-        return NextResponse.json({ message: "Success", todo },)
+        return NextResponse.json({ message: "Success", todo }, { status: 200 })
 
 
     } catch (error) {
         console.log(error);
 
         return NextResponse.json({ message: "GET Error ", error }, { status: 500 });
+    }
+}
+
+
+export const PUT = async (req) => {
+
+    try {
+        const id = req.url.split("/todos/")[1]
+        const { title, description, completed } = await req.json()
+
+        const todo = await prisma.todo.update(
+            {
+                data: { title, description, completed },
+                where: { id }
+            }
+        );
+        if (!todo) return NextResponse.json({ message: "Not Found" }, { status: 404 })
+
+        return NextResponse.json({ message: "Success", todo }, { status: 200 })
+
+
+    } catch (error) {
+        console.log(error);
+
+        return NextResponse.json({ message: "UPDATE Error ", error }, { status: 500 });
+    }
+
+}
+
+
+export const DELETE = async (req) => {
+    try {
+        const id = req.url.split("/todos/")[1]
+        const todo = await prisma.todo.delete(
+            {
+                where: { id }
+            }
+        );
+        if (!todo) return NextResponse.json({ message: "Not Found" }, { status: 404 })
+
+        return NextResponse.json({ message: "Todo deleted successfuly", }, { status: 200 })
+
+
+    } catch (error) {
+        console.log(error);
+
+        return NextResponse.json({ message: "UPDATE Error ", error }, { status: 500 });
     }
 }
